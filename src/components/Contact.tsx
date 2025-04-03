@@ -136,10 +136,10 @@ const Contact = () => {
                   <div>
                     <h4 className="font-medium">Email</h4>
                     <a 
-                      href="mailto:contact@kirankumarrega.com" 
+                      href="mailto:kirankumar.rega@gmail.com" 
                       className="text-sm text-primary hover:underline"
                     >
-                      contact@kirankumarrega.com
+                      kirankumar.rega@gmail.com
                     </a>
                   </div>
                 </div>
@@ -151,12 +151,12 @@ const Contact = () => {
                   <div>
                     <h4 className="font-medium">LinkedIn</h4>
                     <a 
-                      href="https://linkedin.com/in/kirankumarrega" 
+                      href="https://linkedin.com/in/kiranrega" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-sm text-primary hover:underline"
                     >
-                      linkedin.com/in/kirankumarrega
+                      linkedin.com/in/kiranrega
                     </a>
                   </div>
                 </div>
@@ -168,12 +168,12 @@ const Contact = () => {
                   <div>
                     <h4 className="font-medium">GitHub</h4>
                     <a 
-                      href="https://github.com/kirankumarrega" 
+                      href="https://github.com/kiranrega" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-sm text-primary hover:underline"
                     >
-                      github.com/kirankumarrega
+                      github.com/kiranrega
                     </a>
                   </div>
                 </div>
