@@ -2,6 +2,8 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { motion } from 'framer-motion';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -27,7 +29,10 @@ const Navbar = () => {
   };
 
   return (
-    <header 
+    <motion.header 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 100, damping: 15 }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6 md:px-12",
         isScrolled 
@@ -36,7 +41,9 @@ const Navbar = () => {
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <a 
+        <motion.a 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           href="#" 
           className="text-xl font-bold text-foreground tracking-tight"
           onClick={(e) => {
@@ -45,62 +52,109 @@ const Navbar = () => {
           }}
         >
           <span className="text-primary">Kiran</span> Kumar Rega
-        </a>
+        </motion.a>
 
         {/* Desktop menu */}
         <nav className="hidden md:flex items-center space-x-8">
-          <button onClick={() => scrollToSection('about')} className="nav-link">
+          <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            onClick={() => scrollToSection('about')} 
+            className="nav-link"
+          >
             About
-          </button>
-          <button onClick={() => scrollToSection('experience')} className="nav-link">
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            onClick={() => scrollToSection('experience')} 
+            className="nav-link"
+          >
             Experience
-          </button>
-          <button onClick={() => scrollToSection('skills')} className="nav-link">
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            onClick={() => scrollToSection('skills')} 
+            className="nav-link"
+          >
             Skills
-          </button>
-          <button onClick={() => scrollToSection('certifications')} className="nav-link">
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            onClick={() => scrollToSection('certifications')} 
+            className="nav-link"
+          >
             Certifications
-          </button>
-          <button onClick={() => scrollToSection('contact')} className="nav-link">
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            onClick={() => scrollToSection('contact')} 
+            className="nav-link"
+          >
             Contact
-          </button>
+          </motion.button>
+          <ThemeToggle />
         </nav>
 
         {/* Mobile menu button */}
-        <button 
-          className="md:hidden text-foreground p-1 rounded-md"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="md:hidden flex items-center space-x-2">
+          <ThemeToggle />
+          <motion.button 
+            whileHover={{ scale: 1.1 }} 
+            whileTap={{ scale: 0.9 }}
+            className="text-foreground p-1 rounded-md"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </motion.button>
+        </div>
       </div>
 
       {/* Mobile menu */}
-      <div 
+      <motion.div 
+        initial={false}
+        animate={mobileMenuOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
         className={cn(
-          "fixed left-0 right-0 top-[72px] bg-background/95 backdrop-blur-md shadow-md transition-all duration-300 ease-in-out md:hidden px-6 border-t",
-          mobileMenuOpen ? "translate-y-0 opacity-100" : "translate-y-[-100%] opacity-0 pointer-events-none"
+          "fixed left-0 right-0 top-[72px] bg-background/95 backdrop-blur-md shadow-md md:hidden px-6 border-t overflow-hidden"
         )}
       >
         <nav className="flex flex-col py-4 space-y-4">
-          <button onClick={() => scrollToSection('about')} className="nav-link w-fit">
+          <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            onClick={() => scrollToSection('about')} 
+            className="nav-link w-fit"
+          >
             About
-          </button>
-          <button onClick={() => scrollToSection('experience')} className="nav-link w-fit">
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            onClick={() => scrollToSection('experience')} 
+            className="nav-link w-fit"
+          >
             Experience
-          </button>
-          <button onClick={() => scrollToSection('skills')} className="nav-link w-fit">
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            onClick={() => scrollToSection('skills')} 
+            className="nav-link w-fit"
+          >
             Skills
-          </button>
-          <button onClick={() => scrollToSection('certifications')} className="nav-link w-fit">
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            onClick={() => scrollToSection('certifications')} 
+            className="nav-link w-fit"
+          >
             Certifications
-          </button>
-          <button onClick={() => scrollToSection('contact')} className="nav-link w-fit">
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }} 
+            onClick={() => scrollToSection('contact')} 
+            className="nav-link w-fit"
+          >
             Contact
-          </button>
+          </motion.button>
         </nav>
-      </div>
-    </header>
+      </motion.div>
+    </motion.header>
   );
 };
 
