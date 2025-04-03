@@ -38,19 +38,25 @@ const SkillCard = ({
   skill: SkillItem;
   delay: number;
 }) => {
+  const levelColor = {
+    Beginner: "text-yellow-500",
+    Intermediate: "text-blue-500",
+    Experienced: "text-green-500"
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: delay }}
-      className="flex items-center gap-3 mb-6"
+      className="flex items-center gap-3 mb-6 hover:translate-x-2 transition-transform duration-300"
     >
       <div className="p-2 rounded-full bg-primary/10 text-primary">
         {skill.icon}
       </div>
       <div>
         <h4 className="text-lg font-medium">{skill.name}</h4>
-        <p className="text-sm text-muted-foreground">{skill.level}</p>
+        <p className={`text-sm ${levelColor[skill.level]}`}>{skill.level}</p>
       </div>
     </motion.div>
   );
@@ -67,7 +73,7 @@ const SkillCategoryCard = ({
 }) => (
   <Card 
     className={cn(
-      "p-6 glass-card opacity-0 relative overflow-hidden",
+      "p-6 glass-card opacity-0 relative overflow-hidden transition-all duration-300 hover:shadow-lg",
       inView ? "animate-fade-in" : ""
     )} 
     style={{ animationDelay: delay }}
