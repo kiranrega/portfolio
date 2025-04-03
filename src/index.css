@@ -118,18 +118,6 @@
     @apply px-3 py-1 rounded-full text-sm bg-secondary text-secondary-foreground transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:scale-105;
   }
 
-  .skill-card {
-    @apply relative p-4 rounded-lg transition-all duration-300 hover:bg-primary/5;
-  }
-  
-  .skill-icon {
-    @apply flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary mb-3;
-  }
-
-  .skill-level {
-    @apply text-xs font-medium text-muted-foreground uppercase tracking-wide;
-  }
-
   .timeline-item {
     @apply relative pl-6 pb-8 border-l border-border last:border-l-transparent;
   }
