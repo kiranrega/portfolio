@@ -12,7 +12,7 @@ import {
   Cpu, 
   CodeXml,
   Coffee,
-  Git,
+  GitBranch, // Changed from Git to GitBranch
   Terminal,
   Figma,
   Box
@@ -115,7 +115,7 @@ const Skills = () => {
   ];
   
   const toolsSkills: SkillItem[] = [
-    { name: "Git", level: "Intermediate", icon: <Git size={20} /> },
+    { name: "Git", level: "Intermediate", icon: <GitBranch size={20} /> }, // Changed from Git to GitBranch
     { name: "VS Code", level: "Experienced", icon: <Terminal size={20} /> },
     { name: "Figma", level: "Beginner", icon: <Figma size={20} /> },
   ];
