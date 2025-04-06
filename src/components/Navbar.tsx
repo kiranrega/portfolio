@@ -44,22 +44,22 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6 md:px-12",
         isScrolled 
-          ? "bg-background/80 backdrop-blur-md border-b border-white/5" 
+          ? "bg-background/70 backdrop-blur-md border-b border-secondary/30" 
           : "bg-transparent"
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <motion.a 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           href="#" 
-          className="text-xl font-bold tracking-tight"
+          className="text-xl font-medium tracking-tight"
           onClick={(e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <span className="gradient-text font-display">Kiran</span> <span className="font-light">Kumar Rega</span>
+          <span className="gradient-text font-display">Kiran</span> <span className="font-light">Kumar</span>
         </motion.a>
 
         {/* Desktop menu */}
@@ -67,14 +67,14 @@ const Navbar = () => {
           {navItems.map((item, index) => (
             <motion.button 
               key={item.id}
-              initial={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index, duration: 0.5 }}
-              whileHover={{ scale: 1.05 }} 
+              transition={{ delay: 0.1 * index, duration: 0.3 }}
+              whileHover={{ y: -2 }} 
               onClick={() => scrollToSection(item.id)} 
-              className="nav-link"
+              className="nav-link text-sm"
             >
-              <span className="text-primary mr-1 font-mono text-xs">{`0${index + 1}.`}</span> {item.label}
+              {item.label}
             </motion.button>
           ))}
           <ThemeToggle />
@@ -84,12 +84,12 @@ const Navbar = () => {
         <div className="md:hidden flex items-center space-x-2">
           <ThemeToggle />
           <motion.button 
-            whileHover={{ scale: 1.1 }} 
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }} 
+            whileTap={{ scale: 0.95 }}
             className="text-foreground p-1 rounded-md"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </motion.button>
         </div>
       </div>
@@ -99,18 +99,18 @@ const Navbar = () => {
         initial={false}
         animate={mobileMenuOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
         className={cn(
-          "fixed left-0 right-0 top-[72px] bg-background/95 backdrop-blur-md shadow-md md:hidden px-6 border-t border-white/5 overflow-hidden"
+          "fixed left-0 right-0 top-[72px] bg-background/95 backdrop-blur-md shadow-sm md:hidden px-6 border-t border-secondary/30 overflow-hidden"
         )}
       >
         <nav className="flex flex-col py-4 space-y-4">
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             <motion.button 
               key={item.id}
-              whileHover={{ x: 5 }} 
+              whileHover={{ x: 2 }} 
               onClick={() => scrollToSection(item.id)} 
-              className="nav-link w-fit flex items-center"
+              className="nav-link w-fit flex items-center text-sm"
             >
-              <span className="text-primary mr-2 font-mono text-xs">{`0${index + 1}.`}</span> {item.label}
+              {item.label}
             </motion.button>
           ))}
         </nav>

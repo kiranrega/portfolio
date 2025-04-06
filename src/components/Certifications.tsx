@@ -14,7 +14,7 @@ const Certification = ({ title, issuer, logo, link, index }: CertificationProps)
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: index * 0.1 }}
+    transition={{ duration: 0.4, delay: index * 0.1 }}
     viewport={{ once: true }}
     className="h-full"
   >
@@ -22,24 +22,24 @@ const Certification = ({ title, issuer, logo, link, index }: CertificationProps)
       href={link} 
       target="_blank" 
       rel="noopener noreferrer"
-      whileHover={{ y: -5 }}
+      whileHover={{ y: -3 }}
       className="block h-full"
     >
-      <div className="glass-card border border-white/5 hover:border-primary/30 transition-all duration-300 h-full p-6 group">
+      <div className="minimalist-card flex flex-col h-full group">
         <div className="flex items-start gap-4">
-          <div className="bg-white/5 p-3 rounded-lg flex-shrink-0">
+          <div className="bg-background p-3 rounded-md flex-shrink-0">
             <img 
               src={logo} 
               alt={issuer} 
-              className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-110"
+              className="w-10 h-10 object-contain transition-transform duration-300 group-hover:scale-110"
             />
           </div>
           <div className="flex-grow">
             <div className="flex items-start justify-between">
-              <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">{title}</h3>
-              <ExternalLink size={16} className="text-foreground/40 group-hover:text-primary transition-colors" />
+              <h3 className="font-medium text-base group-hover:text-primary transition-colors">{title}</h3>
+              <ExternalLink size={14} className="text-foreground/40 group-hover:text-primary transition-colors" />
             </div>
-            <p className="text-sm text-primary/80 mt-1">{issuer}</p>
+            <p className="text-sm text-foreground/60 mt-1">{issuer}</p>
           </div>
         </div>
       </div>
@@ -70,26 +70,25 @@ const Certifications = () => {
   ];
 
   return (
-    <section id="certifications" className="py-20 md:py-28">
+    <section id="certifications" className="py-20 md:py-24">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.4 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 flex items-center">
-            <span className="text-primary font-mono text-2xl mr-2">04.</span>
-            <span>Certifications</span>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            <span className="text-primary mr-2">/</span>
+            Certifications
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary via-accent to-accent-blue rounded-full"></div>
-          <p className="text-foreground/60 mt-6 max-w-2xl">
-            Professional certificates I've earned throughout my career journey
+          <p className="text-foreground/60 max-w-2xl">
+            Professional certificates earned throughout my journey
           </p>
         </motion.div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {certifications.map((cert, index) => (
             <Certification
               key={index}
@@ -101,18 +100,6 @@ const Certifications = () => {
             />
           ))}
         </div>
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="mt-14 text-center"
-        >
-          <p className="text-foreground/60 italic">
-            Continuously learning and expanding my knowledge through professional certifications
-          </p>
-        </motion.div>
       </div>
     </section>
   );

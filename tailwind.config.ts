@@ -63,10 +63,10 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// New custom colors
-				'accent-pink': '#FF498B',
-				'accent-purple': '#9945FF',
-				'accent-blue': '#14F195',
+				// New custom colors for minimalist design
+				'accent-teal': '#14B8A6',
+				'accent-indigo': '#6366F1',
+				'accent-amber': '#F59E0B',
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
