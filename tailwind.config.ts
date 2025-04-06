@@ -62,7 +62,17 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Add custom theme colors used in the portfolio
+				'navy-shadow': 'rgba(2, 12, 27, 0.7)',
+				'navy-light': '#112240',
+				'navy': '#0a192f',
+				'navy-dark': '#020c1b',
+				'slate': '#8892b0',
+				'light-slate': '#a8b2d1',
+				'lightest-slate': '#ccd6f6',
+				'white': '#e6f1ff',
+				'green': '#64ffda',
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
