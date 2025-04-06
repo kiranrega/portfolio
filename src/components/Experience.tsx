@@ -1,25 +1,68 @@
 
-import { useState } from "react";
+import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { Briefcase } from "lucide-react";
 
-interface JobData {
-  company: string;
-  title: string;
-  range: string;
-  url: string;
+const ExperienceCard = ({ 
+  position, 
+  company, 
+  duration, 
+  logoUrl, 
+  responsibilities, 
+  index 
+}: { 
+  position: string; 
+  company: string; 
+  duration: string; 
+  logoUrl: string; 
   responsibilities: string[];
-}
+  index: number;
+}) => (
+  <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.2 }}
+    viewport={{ once: true }}
+    className="mb-8"
+  >
+    <Card className="p-6 md:p-8 glass-card border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
+      <div className="flex flex-col md:flex-row md:items-start gap-6">
+        <div className="flex-shrink-0 flex justify-center">
+          <div className="relative w-16 h-16 overflow-hidden rounded-lg shadow-lg border border-primary/10">
+            <img 
+              src={logoUrl} 
+              alt={company} 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+        <div className="flex-grow space-y-3">
+          <h3 className="text-2xl font-bold text-primary">{position}</h3>
+          <div className="flex items-center text-foreground/80 text-sm space-x-2">
+            <Briefcase size={16} className="text-primary/80" />
+            <span className="font-semibold">{company}</span>
+            <span>•</span>
+            <span>{duration}</span>
+          </div>
+          
+          <ul className="list-disc list-inside space-y-2 text-foreground/80 pl-4 mt-4">
+            {responsibilities.map((item, i) => (
+              <li key={i} className="pl-2">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </Card>
+  </motion.div>
+);
 
 const Experience = () => {
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
-  
-  const jobs: JobData[] = [
+  const experiences = [
     {
+      position: "Junior Software Engineer",
       company: "IntouchCX",
-      title: "Junior Software Engineer",
-      range: "May 2024 - Present",
-      url: "https://intouchcx.com",
+      duration: "May 2024 - Present",
+      logoUrl: "https://media.licdn.com/dms/image/v2/D4E0BAQEYz4rx86_pSA/company-logo_400_400/company-logo_400_400/0/1719868373797/intouchcx_logo?e=1748476800&v=beta&t=07lelKMc7eBX5m3fUhr-u994dqne5PbtdKpr3qjIFCI",
       responsibilities: [
         "Building responsive and accessible web applications using React.js and TypeScript",
         "Collaborating with cross-functional teams to implement innovative frontend solutions",
@@ -28,10 +71,10 @@ const Experience = () => {
       ]
     },
     {
+      position: "Software Engineer",
       company: "Extended Web AppTech",
-      title: "Software Engineer",
-      range: "March 2022 - September 2023",
-      url: "https://extendedwebapptech.com",
+      duration: "March 2022 - September 2023",
+      logoUrl: "https://media.licdn.com/dms/image/v2/C4E0BAQF0ibKMjHAp1A/company-logo_400_400-alternative/company-logo_400_400-alternative/0/1630642915207/extended_web_apptech_llp_logo?e=1748476800&v=beta&t=UkeI4cSC1Ak4pfeV5J5o6P0PvSmoEoTUVdImYpcz_4c",
       responsibilities: [
         "Developed and maintained frontend applications using React.js and JavaScript",
         "Implemented responsive designs that worked across various devices and screen sizes",
@@ -42,66 +85,36 @@ const Experience = () => {
     }
   ];
 
-  const activeJob = jobs[activeTabIndex];
-
   return (
-    <section id="experience" className="py-24 max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="section-heading experience">Where I've Worked</h2>
-      </motion.div>
-      
-      <div className="flex flex-col md:flex-row gap-10">
-        <div className="w-full md:w-32">
-          <div className="experience-tabs">
-            {jobs.map((job, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveTabIndex(idx)}
-                className={cn(
-                  "tab-button",
-                  activeTabIndex === idx ? "active" : ""
-                )}
-              >
-                {job.company}
-              </button>
-            ))}
-          </div>
-        </div>
+    <section id="experience" className="py-20 md:py-28 bg-gradient-to-b from-background/80 to-secondary/10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            My <span className="text-primary">Experience</span>
+          </h1>
+          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
+            My work experience as a software engineer
+          </p>
+        </motion.div>
         
-        <div className="flex-1">
-          <motion.div
-            key={activeTabIndex}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.3 }}
-            className="min-h-[320px]"
-          >
-            <h3 className="text-xl text-lightest-slate mb-1">
-              <span className="font-semibold">{activeJob.title}</span>
-              <span className="text-primary"> @ </span>
-              <a 
-                href={activeJob.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="font-semibold link-hover"
-              >
-                {activeJob.company}
-              </a>
-            </h3>
-            
-            <p className="font-sfmono text-sm text-slate mb-6">{activeJob.range}</p>
-            
-            <ul className="numbered-list text-slate">
-              {activeJob.responsibilities.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-          </motion.div>
+        <div className="mt-16">
+          {experiences.map((exp, index) => (
+            <ExperienceCard
+              key={index}
+              position={exp.position}
+              company={exp.company}
+              duration={exp.duration}
+              logoUrl={exp.logoUrl}
+              responsibilities={exp.responsibilities}
+              index={index}
+            />
+          ))}
         </div>
       </div>
     </section>
