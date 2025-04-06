@@ -6,21 +6,20 @@ import { FileText } from "lucide-react";
 
 const About = () => {
   return (
-    <section id="about" className="py-20 md:py-28 bg-gradient-to-b from-background/90 to-background/70">
+    <section id="about" className="py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            Know Who <span className="text-primary">I Am</span>
-          </h1>
-          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-            A passionate Frontend Developer from India
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 flex items-center">
+            <span className="text-primary font-mono text-2xl mr-2">01.</span>
+            <span>About Me</span>
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary via-accent to-accent-blue rounded-full"></div>
         </motion.div>
         
         <div className="grid md:grid-cols-5 gap-10">
@@ -31,38 +30,72 @@ const About = () => {
             viewport={{ once: true }}
             className="md:col-span-3"
           >
-            <Card className="p-6 md:p-8 glass-card border-primary/10">
-              <div className="space-y-4 text-foreground/90">
-                <p className="text-lg">
-                  Hi Everyone, I'm <span className="text-primary font-bold">Kiran Kumar Rega</span> from <span className="text-primary font-bold">Hyderabad, India</span>.
-                  I'm a junior software engineer specializing in frontend development, 
-                  currently working at IntouchCX.
+            <Card className="p-6 md:p-8 glass-card border-white/5 hover:border-primary/20 transition-all duration-300">
+              <div className="space-y-4 text-foreground/80">
+                <p className="text-lg leading-relaxed">
+                  Hello! I'm <span className="text-primary font-medium">Kiran Kumar Rega</span>, a frontend developer with a passion for creating engaging user experiences. I'm based in <span className="text-primary font-medium">Hyderabad, India</span> and currently working at IntouchCX as a Junior Software Engineer.
                 </p>
-                <p>
-                  I bring a unique perspective to software engineering with an educational 
-                  background in Mineral Processing. My journey into tech started after completing my 
-                  Master's degree, where I discovered my passion for creating user-friendly web applications.
+                <p className="leading-relaxed">
+                  My journey into tech is somewhat unique, as I started with an educational 
+                  background in <span className="italic">Mineral Processing</span>. After completing my 
+                  Master's degree, I discovered my passion for building digital products and pivoted 
+                  my career toward software engineering.
                 </p>
-                <p>
-                  Apart from coding, some other activities that I love to do:
+                <p className="leading-relaxed">
+                  My main focus these days is building accessible, inclusive products and digital experiences 
+                  at IntouchCX for a variety of clients. I particularly enjoy creating fluid, responsive interfaces 
+                  that provide exceptional user experiences across all devices.
                 </p>
-                <ul className="list-disc list-inside space-y-2 pl-4">
-                  <li className="pl-2">Playing Games</li>
-                  <li className="pl-2">Reading Tech Articles</li>
-                  <li className="pl-2">Exploring New Technologies</li>
-                  <li className="pl-2">Contributing to Open-Source Projects</li>
+                <p className="leading-relaxed">
+                  Outside of coding, I enjoy:
+                </p>
+                <ul className="space-y-2 pl-4">
+                  {[
+                    "Playing Games",
+                    "Reading Tech Articles",
+                    "Exploring New Technologies",
+                    "Contributing to Open-Source Projects"
+                  ].map((item, index) => (
+                    <motion.li 
+                      key={index}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                      className="flex items-start"
+                    >
+                      <span className="text-primary mr-2">▹</span>
+                      <span>{item}</span>
+                    </motion.li>
+                  ))}
                 </ul>
                 
-                <p className="font-bold text-primary mt-4">
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                  viewport={{ once: true }}
+                  className="font-medium text-primary mt-4 italic"
+                >
                   "Strive to build things that make a difference!"
-                </p>
+                </motion.p>
 
-                <div className="mt-8">
-                  <Button className="flex items-center gap-2" variant="default">
-                    <FileText size={18} />
-                    Download Resume
-                  </Button>
-                </div>
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  viewport={{ once: true }}
+                  className="mt-8"
+                >
+                  <div className="gradient-border inline-block">
+                    <div className="p-[1px]">
+                      <Button className="flex items-center gap-2 btn-hover-effect bg-background hover:bg-background/80 text-foreground border-0" variant="default">
+                        <FileText size={18} />
+                        Download Resume
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </Card>
           </motion.div>
@@ -74,22 +107,42 @@ const About = () => {
             viewport={{ once: true }}
             className="md:col-span-2"
           >
-            <Card className="p-6 md:p-8 glass-card border-primary/10 h-full">
-              <h3 className="text-2xl font-bold text-primary mb-6">Education</h3>
-              <div className="space-y-6">
-                <div className="space-y-2 border-l-2 border-primary/30 pl-4 py-2">
-                  <h4 className="font-bold text-lg">Master of Technology (M.Tech.)</h4>
-                  <p className="text-primary/80">Mineral Processing</p>
-                  <p className="text-foreground/70">Vijayanagara Sri Krishnadevaraya University, Bellary</p>
-                  <p className="text-foreground/70">2013-2016</p>
-                </div>
+            <Card className="p-6 md:p-8 glass-card border-white/5 hover:border-primary/20 transition-all duration-300 h-full">
+              <h3 className="text-2xl font-bold gradient-text mb-6">Education</h3>
+              <div className="space-y-6 relative">
+                <div className="absolute left-2 top-0 bottom-0 w-px bg-white/10"></div>
                 
-                <div className="space-y-2 border-l-2 border-primary/30 pl-4 py-2">
-                  <h4 className="font-bold text-lg">Bachelor of Science (B.Sc.)</h4>
-                  <p className="text-primary/80">Mineral Beneficiation</p>
-                  <p className="text-foreground/70">Andhra University</p>
-                  <p className="text-foreground/70">2010-2013</p>
-                </div>
+                {[
+                  {
+                    degree: "Master of Technology (M.Tech.)",
+                    field: "Mineral Processing",
+                    institution: "Vijayanagara Sri Krishnadevaraya University, Bellary",
+                    years: "2013-2016"
+                  },
+                  {
+                    degree: "Bachelor of Science (B.Sc.)",
+                    field: "Mineral Beneficiation",
+                    institution: "Andhra University",
+                    years: "2010-2013"
+                  }
+                ].map((edu, index) => (
+                  <motion.div 
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.2 }}
+                    viewport={{ once: true }}
+                    className="relative pl-8"
+                  >
+                    <div className="absolute left-0 top-2 w-4 h-4 rounded-full bg-primary z-10"></div>
+                    <div className="space-y-1">
+                      <h4 className="font-bold text-lg">{edu.degree}</h4>
+                      <p className="text-primary">{edu.field}</p>
+                      <p className="text-foreground/60">{edu.institution}</p>
+                      <p className="text-foreground/50 font-mono text-sm">{edu.years}</p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </Card>
           </motion.div>

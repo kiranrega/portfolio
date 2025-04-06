@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&family=Raleway:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -6,33 +7,33 @@
 
 @layer base {
   :root {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    --background: 240 10% 4%; /* Dark background similar to Riccardo's site */
+    --foreground: 0 0% 98%;
 
-    --card: 220 40% 13%;
-    --card-foreground: 210 40% 98%;
+    --card: 240 10% 8%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 240 10% 4%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 171 77% 64%;
-    --primary-foreground: 222 47% 11%;
+    --primary: 328 100% 54%; /* Vibrant pink similar to Riccardo's site */
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 217 32% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 240 10% 10%;
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 217 32% 17%;
-    --muted-foreground: 215 20% 65%;
+    --muted: 240 10% 12%;
+    --muted-foreground: 240 5% 65%;
 
-    --accent: 171 77% 64%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 267 100% 64%; /* Vibrant purple similar to Riccardo's site */
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 217 32% 17%;
-    --input: 217 32% 17%;
-    --ring: 171 77% 64%;
+    --border: 240 10% 12%;
+    --input: 240 10% 12%;
+    --ring: 328 100% 54%;
     
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -52,7 +53,7 @@
 
   body {
     @apply bg-background text-foreground font-sans transition-colors duration-300;
-    font-family: 'Raleway', 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif;
   }
 
   ::selection {
@@ -62,11 +63,14 @@
 
 @layer components {
   .glass-card {
-    @apply bg-background/70 backdrop-blur-md border border-border shadow-lg dark:bg-background/40 dark:border-border/30;
+    @apply bg-secondary/50 backdrop-blur-md border border-white/5 shadow-lg;
   }
 
   .nav-link {
-    @apply relative inline-block text-foreground/80 hover:text-primary transition-colors duration-200 after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+    @apply relative inline-block text-foreground/80 hover:text-primary transition-colors duration-200 
+           after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 
+           after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform 
+           after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
 
   .nav-link.active {
@@ -74,11 +78,12 @@
   }
 
   .skill-badge {
-    @apply px-3 py-1 rounded-full text-sm bg-secondary text-secondary-foreground transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:scale-105;
+    @apply px-4 py-2 rounded-full text-sm bg-muted text-foreground/80 transition-all duration-300 
+           hover:bg-primary/10 hover:text-primary hover:scale-105 border border-white/5;
   }
 
   .timeline-item {
-    @apply relative pl-6 pb-8 border-l border-border last:border-l-transparent;
+    @apply relative pl-6 pb-8 border-l border-white/10 last:border-l-transparent;
   }
   
   .timeline-item::before {
@@ -87,48 +92,48 @@
   }
 
   .section-heading {
-    @apply text-3xl font-bold mb-6 text-foreground/90 inline-block;
+    @apply text-3xl font-bold mb-8 text-foreground/90 inline-block;
   }
 
   .section-heading::after {
     content: '';
-    @apply block w-2/3 h-1 mt-2 bg-primary/30 rounded-full;
+    @apply block w-2/3 h-1 mt-2 bg-gradient-to-r from-primary via-accent to-accent-blue rounded-full;
   }
 
   .company-logo {
     @apply w-16 h-16 rounded-lg object-contain p-2 bg-white shadow-md dark:bg-background/70;
   }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-accent to-accent-blue bg-clip-text text-transparent;
+  }
+  
+  .gradient-border {
+    @apply border border-transparent bg-gradient-to-r from-primary via-accent to-accent-blue rounded-lg p-[1px];
+  }
+  
+  .gradient-border > div {
+    @apply bg-background rounded-lg;
+  }
 }
 
-.image-rotate {
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
-
-.image-rotate img {
-  transform-style: preserve-3d;
-  transition: transform 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000);
-}
-
-.image-rotate:hover img {
-  transform: rotateY(10deg) rotateX(5deg);
-}
-
-/* Particles background effect */
-.particles {
+/* Animated background elements */
+.animated-bg {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
+  overflow: hidden;
   z-index: -1;
 }
 
-.particle {
+.animated-bg-element {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(1px);
+  filter: blur(40px);
+  opacity: 0.2;
+  z-index: -1;
   animation: float 8s infinite ease-in-out;
 }
 
@@ -148,7 +153,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-muted rounded-full;
+  @apply bg-secondary/50 rounded-full;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -179,4 +184,34 @@
 /* Typewriter cursor style */
 .Typewriter__cursor {
   @apply text-primary;
+}
+
+/* Button hover effect */
+.btn-hover-effect {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.btn-hover-effect::before {
+  content: '';
+  @apply absolute -left-full top-0 h-full w-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-700;
+}
+
+.btn-hover-effect:hover::before {
+  @apply left-full;
+}
+
+/* 3D Tilt Effect */
+.tilt-effect {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.tilt-content {
+  transform: translateZ(20px);
+  transition: transform 0.3s ease-out;
+}
+
+/* Magnetic effect for buttons */
+.magnetic-btn {
+  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }

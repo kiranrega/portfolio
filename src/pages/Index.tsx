@@ -1,5 +1,5 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -8,14 +8,16 @@ import Skills from "@/components/Skills";
 import Certifications from "@/components/Certifications";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import { useInView } from 'react-intersection-observer';
 import { Toaster } from "@/components/ui/sonner";
-
-// Import React Intersection Observer
-import { InView } from 'react-intersection-observer';
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 const Index = () => {
+  const [mounted, setMounted] = useState(false);
+  
   useEffect(() => {
+    setMounted(true);
+    
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -30,52 +32,77 @@ const Index = () => {
     });
   }, []);
 
+  if (!mounted) return null;
+
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground relative">
       <Navbar />
       <Toaster position="top-right" />
       
+      {/* Side social links */}
+      <motion.div 
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+        className="fixed bottom-0 left-5 z-40 hidden lg:block"
+      >
+        <div className="flex flex-col items-center">
+          <motion.a 
+            whileHover={{ y: -5, color: '#FF498B' }}
+            href="https://github.com/kiranrega" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-foreground/40 hover:text-primary transition-all duration-200 p-2.5"
+          >
+            <Github size={20} />
+          </motion.a>
+          <motion.a 
+            whileHover={{ y: -5, color: '#FF498B' }}
+            href="https://linkedin.com/in/kiranrega" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-foreground/40 hover:text-primary transition-all duration-200 p-2.5"
+          >
+            <Linkedin size={20} />
+          </motion.a>
+          <motion.a 
+            whileHover={{ y: -5, color: '#FF498B' }}
+            href="mailto:kirankumar.rega@gmail.com" 
+            className="text-foreground/40 hover:text-primary transition-all duration-200 p-2.5"
+          >
+            <Mail size={20} />
+          </motion.a>
+          <div className="w-px h-24 bg-foreground/20 mt-6"></div>
+        </div>
+      </motion.div>
+      
+      {/* Side email */}
+      <motion.div 
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.2, duration: 0.5 }}
+        className="fixed bottom-0 right-5 z-40 hidden lg:block"
+      >
+        <div className="flex flex-col items-center">
+          <motion.a 
+            whileHover={{ y: -5, color: '#FF498B' }}
+            href="mailto:kirankumar.rega@gmail.com" 
+            className="text-foreground/40 hover:text-primary transition-all duration-200 font-mono tracking-wide text-xs"
+            style={{ writingMode: 'vertical-rl' }}
+          >
+            kirankumar.rega@gmail.com
+          </motion.a>
+          <div className="w-px h-24 bg-foreground/20 mt-6"></div>
+        </div>
+      </motion.div>
+      
       <main>
         <Hero />
-        <InView triggerOnce threshold={0.1}>
-          {({ inView, ref }) => (
-            <div ref={ref} className={`transition-opacity duration-500 ${inView ? 'opacity-100' : 'opacity-0'}`}>
-              <About />
-            </div>
-          )}
-        </InView>
-        
-        <InView triggerOnce threshold={0.1}>
-          {({ inView, ref }) => (
-            <div ref={ref} className={`transition-opacity duration-500 ${inView ? 'opacity-100' : 'opacity-0'}`}>
-              <Experience />
-            </div>
-          )}
-        </InView>
-        
-        <InView triggerOnce threshold={0.1}>
-          {({ inView, ref }) => (
-            <div ref={ref} className={`transition-opacity duration-500 ${inView ? 'opacity-100' : 'opacity-0'}`}>
-              <Skills />
-            </div>
-          )}
-        </InView>
-        
-        <InView triggerOnce threshold={0.1}>
-          {({ inView, ref }) => (
-            <div ref={ref} className={`transition-opacity duration-500 ${inView ? 'opacity-100' : 'opacity-0'}`}>
-              <Certifications />
-            </div>
-          )}
-        </InView>
-        
-        <InView triggerOnce threshold={0.1}>
-          {({ inView, ref }) => (
-            <div ref={ref} className={`transition-opacity duration-500 ${inView ? 'opacity-100' : 'opacity-0'}`}>
-              <Contact />
-            </div>
-          )}
-        </InView>
+        <About />
+        <Experience />
+        <Skills />
+        <Certifications />
+        <Contact />
       </main>
       
       <Footer />

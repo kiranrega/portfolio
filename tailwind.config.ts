@@ -62,11 +62,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// New custom colors
+				'accent-pink': '#FF498B',
+				'accent-purple': '#9945FF',
+				'accent-blue': '#14F195',
 			},
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
 				mono: ['JetBrains Mono', 'monospace'],
+				'display': ['Raleway', 'sans-serif'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -167,6 +172,41 @@ export default {
 						transform: 'translateY(0)',
 						opacity: '1'
 					}
+				},
+				'float': {
+					'0%, 100%': {
+						transform: 'translateY(0)'
+					},
+					'50%': {
+						transform: 'translateY(-10px)'
+					}
+				},
+				'gradient-shift': {
+					'0%': { 
+						backgroundPosition: '0% 50%' 
+					},
+					'50%': { 
+						backgroundPosition: '100% 50%' 
+					},
+					'100%': { 
+						backgroundPosition: '0% 50%' 
+					}
+				},
+				'text-blur-out': {
+					'0%': { 
+						filter: 'blur(0.01)' 
+					},
+					'100%': { 
+						filter: 'blur(12px) opacity(0%)' 
+					}
+				},
+				'text-blur-in': {
+					'0%': { 
+						filter: 'blur(12px) opacity(0%)' 
+					},
+					'100%': { 
+						filter: 'blur(0.01)' 
+					}
 				}
 			},
 			animation: {
@@ -185,6 +225,10 @@ export default {
 				'appear-delay-300': 'appear 0.5s ease-out 0.3s forwards',
 				'appear-delay-400': 'appear 0.5s ease-out 0.4s forwards',
 				'appear-delay-500': 'appear 0.5s ease-out 0.5s forwards',
+				'float': 'float 3s ease-in-out infinite',
+				'gradient-shift': 'gradient-shift 3s ease infinite',
+				'text-blur-out': 'text-blur-out 1.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both',
+				'text-blur-in': 'text-blur-in 1.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both',
 			}
 		}
 	},

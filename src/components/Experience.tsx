@@ -1,53 +1,86 @@
 
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Calendar, ExternalLink } from "lucide-react";
+
+interface JobDetails {
+  position: string;
+  company: string;
+  duration: string;
+  logoUrl: string;
+  responsibilities: string[];
+  companyUrl: string;
+}
 
 const ExperienceCard = ({ 
-  position, 
-  company, 
-  duration, 
-  logoUrl, 
-  responsibilities, 
+  details,
+  isActive,
   index 
 }: { 
-  position: string; 
-  company: string; 
-  duration: string; 
-  logoUrl: string; 
-  responsibilities: string[];
+  details: JobDetails;
+  isActive: boolean;
   index: number;
 }) => (
   <motion.div
     initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, delay: index * 0.2 }}
-    viewport={{ once: true }}
-    className="mb-8"
+    animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 20 }}
+    transition={{ duration: 0.5 }}
+    className={`absolute top-0 left-0 w-full transition-all ${isActive ? 'visible' : 'invisible'}`}
   >
-    <Card className="p-6 md:p-8 glass-card border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg">
+    <Card className="p-6 md:p-8 glass-card hover:border-primary/30 transition-all duration-300">
       <div className="flex flex-col md:flex-row md:items-start gap-6">
         <div className="flex-shrink-0 flex justify-center">
-          <div className="relative w-16 h-16 overflow-hidden rounded-lg shadow-lg border border-primary/10">
-            <img 
-              src={logoUrl} 
-              alt={company} 
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <motion.a 
+            href={details.companyUrl} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="block"
+            whileHover={{ y: -5 }}
+          >
+            <div className="relative w-16 h-16 overflow-hidden rounded-lg shadow-lg border border-white/10 bg-white bg-opacity-5 backdrop-blur-sm flex items-center justify-center">
+              <img 
+                src={details.logoUrl} 
+                alt={details.company} 
+                className="w-full h-full object-contain p-2"
+              />
+            </div>
+          </motion.a>
         </div>
         <div className="flex-grow space-y-3">
-          <h3 className="text-2xl font-bold text-primary">{position}</h3>
-          <div className="flex items-center text-foreground/80 text-sm space-x-2">
-            <Briefcase size={16} className="text-primary/80" />
-            <span className="font-semibold">{company}</span>
-            <span>•</span>
-            <span>{duration}</span>
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold gradient-text">{details.position}</h3>
+            <motion.a 
+              whileHover={{ y: -3, color: '#FF498B' }} 
+              href={details.companyUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-foreground/60 hover:text-primary"
+            >
+              <ExternalLink size={18} />
+            </motion.a>
           </div>
           
-          <ul className="list-disc list-inside space-y-2 text-foreground/80 pl-4 mt-4">
-            {responsibilities.map((item, i) => (
-              <li key={i} className="pl-2">{item}</li>
+          <div className="flex items-center text-foreground/70 text-sm space-x-2">
+            <Briefcase size={16} className="text-primary" />
+            <span className="font-semibold">{details.company}</span>
+            <span>•</span>
+            <Calendar size={16} className="text-primary" />
+            <span>{details.duration}</span>
+          </div>
+          
+          <ul className="space-y-2 text-foreground/70 mt-4">
+            {details.responsibilities.map((item, i) => (
+              <motion.li 
+                key={i} 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.1 + 0.2 }}
+                className="flex items-start"
+              >
+                <span className="text-primary mr-2 mt-1.5">▹</span>
+                <span>{item}</span>
+              </motion.li>
             ))}
           </ul>
         </div>
@@ -57,10 +90,13 @@ const ExperienceCard = ({
 );
 
 const Experience = () => {
-  const experiences = [
+  const [activeTab, setActiveTab] = useState(0);
+
+  const experiences: JobDetails[] = [
     {
       position: "Junior Software Engineer",
       company: "IntouchCX",
+      companyUrl: "https://intouchcx.com",
       duration: "May 2024 - Present",
       logoUrl: "https://media.licdn.com/dms/image/v2/D4E0BAQEYz4rx86_pSA/company-logo_400_400/company-logo_400_400/0/1719868373797/intouchcx_logo?e=1748476800&v=beta&t=07lelKMc7eBX5m3fUhr-u994dqne5PbtdKpr3qjIFCI",
       responsibilities: [
@@ -73,6 +109,7 @@ const Experience = () => {
     {
       position: "Software Engineer",
       company: "Extended Web AppTech",
+      companyUrl: "https://extendedwebapptech.com",
       duration: "March 2022 - September 2023",
       logoUrl: "https://media.licdn.com/dms/image/v2/C4E0BAQF0ibKMjHAp1A/company-logo_400_400-alternative/company-logo_400_400-alternative/0/1630642915207/extended_web_apptech_llp_logo?e=1748476800&v=beta&t=UkeI4cSC1Ak4pfeV5J5o6P0PvSmoEoTUVdImYpcz_4c",
       responsibilities: [
@@ -86,35 +123,63 @@ const Experience = () => {
   ];
 
   return (
-    <section id="experience" className="py-20 md:py-28 bg-gradient-to-b from-background/80 to-secondary/10">
+    <section id="experience" className="py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            My <span className="text-primary">Experience</span>
-          </h1>
-          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-            My work experience as a software engineer
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 flex items-center">
+            <span className="text-primary font-mono text-2xl mr-2">02.</span>
+            <span>Where I've Worked</span>
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary via-accent to-accent-blue rounded-full"></div>
         </motion.div>
         
-        <div className="mt-16">
-          {experiences.map((exp, index) => (
-            <ExperienceCard
-              key={index}
-              position={exp.position}
-              company={exp.company}
-              duration={exp.duration}
-              logoUrl={exp.logoUrl}
-              responsibilities={exp.responsibilities}
-              index={index}
-            />
-          ))}
+        <div className="flex flex-col md:flex-row gap-10">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="md:w-48 flex-shrink-0"
+          >
+            <div className="flex md:flex-col border-b md:border-b-0 md:border-l border-muted">
+              {experiences.map((exp, index) => (
+                <button 
+                  key={index}
+                  onClick={() => setActiveTab(index)}
+                  className={`px-5 py-4 text-left font-mono text-sm transition-all hover:bg-muted hover:text-primary
+                   ${activeTab === index 
+                    ? 'text-primary border-b-2 md:border-b-0 md:border-l-2 border-primary bg-muted' 
+                    : 'text-foreground/60 border-b-2 md:border-b-0 md:border-l-2 border-transparent'}`}
+                >
+                  {exp.company}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="flex-grow relative"
+            style={{ minHeight: '300px' }}
+          >
+            {experiences.map((exp, index) => (
+              <ExperienceCard 
+                key={index} 
+                details={exp} 
+                isActive={activeTab === index}
+                index={index}
+              />
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>

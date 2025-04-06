@@ -1,7 +1,6 @@
 
-import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { ExternalLink } from "lucide-react";
 
 interface CertificationProps {
   title: string;
@@ -17,32 +16,33 @@ const Certification = ({ title, issuer, logo, link, index }: CertificationProps)
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
     viewport={{ once: true }}
+    className="h-full"
   >
     <motion.a 
       href={link} 
       target="_blank" 
       rel="noopener noreferrer"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ y: -5 }}
       className="block h-full"
     >
-      <Card className={cn(
-        "p-6 glass-card border-primary/10 transition-all duration-300 hover:shadow-lg hover:border-primary/30 h-full",
-      )}>
-        <div className="flex items-center gap-4">
-          <div className="bg-white p-2 rounded-lg shadow-md">
+      <div className="glass-card border border-white/5 hover:border-primary/30 transition-all duration-300 h-full p-6 group">
+        <div className="flex items-start gap-4">
+          <div className="bg-white/5 p-3 rounded-lg flex-shrink-0">
             <img 
               src={logo} 
               alt={issuer} 
-              className="w-12 h-12 object-contain"
+              className="w-12 h-12 object-contain transition-transform duration-300 group-hover:scale-110"
             />
           </div>
-          <div>
-            <h3 className="font-bold text-lg">{title}</h3>
-            <p className="text-sm text-primary/80">{issuer}</p>
+          <div className="flex-grow">
+            <div className="flex items-start justify-between">
+              <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">{title}</h3>
+              <ExternalLink size={16} className="text-foreground/40 group-hover:text-primary transition-colors" />
+            </div>
+            <p className="text-sm text-primary/80 mt-1">{issuer}</p>
           </div>
         </div>
-      </Card>
+      </div>
     </motion.a>
   </motion.div>
 );
@@ -70,24 +70,26 @@ const Certifications = () => {
   ];
 
   return (
-    <section id="certifications" className="py-20 md:py-28 bg-gradient-to-b from-secondary/10 to-background/60">
+    <section id="certifications" className="py-20 md:py-28">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="mb-16"
         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            My <span className="text-primary">Certifications</span>
-          </h1>
-          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-            Professional certificates I've earned
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 flex items-center">
+            <span className="text-primary font-mono text-2xl mr-2">04.</span>
+            <span>Certifications</span>
+          </h2>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary via-accent to-accent-blue rounded-full"></div>
+          <p className="text-foreground/60 mt-6 max-w-2xl">
+            Professional certificates I've earned throughout my career journey
           </p>
         </motion.div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {certifications.map((cert, index) => (
             <Certification
               key={index}
@@ -99,6 +101,18 @@ const Certifications = () => {
             />
           ))}
         </div>
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          viewport={{ once: true }}
+          className="mt-14 text-center"
+        >
+          <p className="text-foreground/60 italic">
+            Continuously learning and expanding my knowledge through professional certifications
+          </p>
+        </motion.div>
       </div>
     </section>
   );
