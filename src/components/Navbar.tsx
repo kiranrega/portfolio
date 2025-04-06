@@ -40,7 +40,7 @@ const Navbar = () => {
     <motion.header 
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.6, 0.05, -0.01, 0.9] }}
+      transition={{ duration: 0.6, ease: [0.6, 0.05, 0.01, 0.9] }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6 md:px-12",
         isScrolled 
