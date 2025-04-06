@@ -4,6 +4,7 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { motion } from 'framer-motion';
+import { Button } from './ui/button';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -34,73 +35,78 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ type: "spring", stiffness: 100, damping: 15 }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4 px-6 md:px-12",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-6 px-6 md:px-12",
         isScrolled 
-          ? "bg-background/80 backdrop-blur-md shadow-sm" 
+          ? "bg-background/90 backdrop-blur-md shadow-sm" 
           : "bg-transparent"
       )}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
         <motion.a 
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           href="#" 
-          className="text-xl font-bold text-foreground tracking-tight"
+          className="text-xl font-bold text-primary"
           onClick={(e) => {
             e.preventDefault();
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <span className="text-primary">Kiran</span> Kumar Rega
+          K
         </motion.a>
 
         {/* Desktop menu */}
         <nav className="hidden md:flex items-center space-x-8">
           <motion.button 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ y: -2 }} 
             onClick={() => scrollToSection('about')} 
             className="nav-link"
           >
-            About
+            <span className="nav-number">01.</span> About
           </motion.button>
           <motion.button 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ y: -2 }} 
             onClick={() => scrollToSection('experience')} 
             className="nav-link"
           >
-            Experience
+            <span className="nav-number">02.</span> Experience
           </motion.button>
           <motion.button 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ y: -2 }} 
             onClick={() => scrollToSection('skills')} 
             className="nav-link"
           >
-            Skills
+            <span className="nav-number">03.</span> Skills
           </motion.button>
           <motion.button 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ y: -2 }} 
             onClick={() => scrollToSection('certifications')} 
             className="nav-link"
           >
-            Certifications
+            <span className="nav-number">04.</span> Certifications
           </motion.button>
           <motion.button 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ y: -2 }} 
             onClick={() => scrollToSection('contact')} 
             className="nav-link"
           >
-            Contact
+            <span className="nav-number">05.</span> Contact
           </motion.button>
-          <ThemeToggle />
+          
+          <Button 
+            variant="outline" 
+            className="font-sfmono text-primary border-primary hover:bg-primary/10"
+          >
+            Resume
+          </Button>
         </nav>
 
         {/* Mobile menu button */}
-        <div className="md:hidden flex items-center space-x-2">
-          <ThemeToggle />
+        <div className="md:hidden flex items-center">
           <motion.button 
             whileHover={{ scale: 1.1 }} 
             whileTap={{ scale: 0.9 }}
-            className="text-foreground p-1 rounded-md"
+            className="text-primary p-1 rounded-md"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -113,45 +119,52 @@ const Navbar = () => {
         initial={false}
         animate={mobileMenuOpen ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
         className={cn(
-          "fixed left-0 right-0 top-[72px] bg-background/95 backdrop-blur-md shadow-md md:hidden px-6 border-t overflow-hidden"
+          "fixed left-0 right-0 top-[72px] bg-background/95 backdrop-blur-md shadow-md md:hidden px-6 border-t overflow-hidden z-50"
         )}
       >
-        <nav className="flex flex-col py-4 space-y-4">
+        <nav className="flex flex-col py-6 space-y-4 items-center">
           <motion.button 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ x: 4 }} 
             onClick={() => scrollToSection('about')} 
-            className="nav-link w-fit"
+            className="nav-link w-full text-center py-3"
           >
-            About
+            <span className="nav-number">01.</span> About
           </motion.button>
           <motion.button 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ x: 4 }} 
             onClick={() => scrollToSection('experience')} 
-            className="nav-link w-fit"
+            className="nav-link w-full text-center py-3"
           >
-            Experience
+            <span className="nav-number">02.</span> Experience
           </motion.button>
           <motion.button 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ x: 4 }} 
             onClick={() => scrollToSection('skills')} 
-            className="nav-link w-fit"
+            className="nav-link w-full text-center py-3"
           >
-            Skills
+            <span className="nav-number">03.</span> Skills
           </motion.button>
           <motion.button 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ x: 4 }} 
             onClick={() => scrollToSection('certifications')} 
-            className="nav-link w-fit"
+            className="nav-link w-full text-center py-3"
           >
-            Certifications
+            <span className="nav-number">04.</span> Certifications
           </motion.button>
           <motion.button 
-            whileHover={{ scale: 1.05 }} 
+            whileHover={{ x: 4 }} 
             onClick={() => scrollToSection('contact')} 
-            className="nav-link w-fit"
+            className="nav-link w-full text-center py-3"
           >
-            Contact
+            <span className="nav-number">05.</span> Contact
           </motion.button>
+          
+          <Button 
+            variant="outline" 
+            className="font-sfmono text-primary border-primary hover:bg-primary/10 mt-4 w-full"
+          >
+            Resume
+          </Button>
         </nav>
       </motion.div>
     </motion.header>

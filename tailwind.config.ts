@@ -67,6 +67,8 @@ export default {
 			fontFamily: {
 				sans: ['Inter', 'sans-serif'],
 				mono: ['JetBrains Mono', 'monospace'],
+				calibre: ['Calibre', 'Inter', 'San Francisco', 'SF Pro Text', 'sans-serif'],
+				sfmono: ['SF Mono', 'Fira Code', 'JetBrains Mono', 'monospace'],
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

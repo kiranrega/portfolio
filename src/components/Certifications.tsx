@@ -1,7 +1,6 @@
 
-import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { ExternalLink } from "lucide-react";
 
 interface CertificationProps {
   title: string;
@@ -18,32 +17,27 @@ const Certification = ({ title, issuer, logo, link, index }: CertificationProps)
     transition={{ duration: 0.5, delay: index * 0.1 }}
     viewport={{ once: true }}
   >
-    <motion.a 
+    <a 
       href={link} 
       target="_blank" 
       rel="noopener noreferrer"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      className="block h-full"
+      className="block glass-card p-6 transition-all duration-300 hover:translate-y-[-5px] group"
     >
-      <Card className={cn(
-        "p-6 glass-card border-primary/10 transition-all duration-300 hover:shadow-lg hover:border-primary/30 h-full",
-      )}>
-        <div className="flex items-center gap-4">
-          <div className="bg-white p-2 rounded-lg shadow-md">
-            <img 
-              src={logo} 
-              alt={issuer} 
-              className="w-12 h-12 object-contain"
-            />
-          </div>
-          <div>
-            <h3 className="font-bold text-lg">{title}</h3>
-            <p className="text-sm text-primary/80">{issuer}</p>
-          </div>
+      <div className="flex items-center gap-4">
+        <div className="bg-primary/10 p-3 rounded-md">
+          <img 
+            src={logo} 
+            alt={issuer} 
+            className="w-10 h-10 object-contain"
+          />
         </div>
-      </Card>
-    </motion.a>
+        <div className="flex-1">
+          <h3 className="font-semibold text-lightest-slate group-hover:text-primary transition-colors duration-200">{title}</h3>
+          <p className="text-slate text-sm">{issuer}</p>
+        </div>
+        <ExternalLink className="text-slate w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity" />
+      </div>
+    </a>
   </motion.div>
 );
 
@@ -70,35 +64,27 @@ const Certifications = () => {
   ];
 
   return (
-    <section id="certifications" className="py-20 md:py-28 bg-gradient-to-b from-secondary/10 to-background/60">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            My <span className="text-primary">Certifications</span>
-          </h1>
-          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-            Professional certificates I've earned
-          </p>
-        </motion.div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {certifications.map((cert, index) => (
-            <Certification
-              key={index}
-              title={cert.title}
-              issuer={cert.issuer}
-              logo={cert.logo}
-              link={cert.link}
-              index={index}
-            />
-          ))}
-        </div>
+    <section id="certifications" className="py-24 max-w-6xl mx-auto px-6 md:px-12 lg:px-24">
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+      >
+        <h2 className="section-heading certifications">Certifications</h2>
+      </motion.div>
+      
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
+        {certifications.map((cert, index) => (
+          <Certification
+            key={index}
+            title={cert.title}
+            issuer={cert.issuer}
+            logo={cert.logo}
+            link={cert.link}
+            index={index}
+          />
+        ))}
       </div>
     </section>
   );
