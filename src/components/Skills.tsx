@@ -1,107 +1,113 @@
 
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import { useInView } from 'react-intersection-observer';
 import { cn } from "@/lib/utils";
 
-const SkillCategory = ({ 
-  title, 
-  skills, 
-  inView, 
-  delay 
-}: { 
-  title: string; 
-  skills: string[];
-  inView: boolean;
-  delay: string;
-}) => (
-  <Card className={cn(
-    "p-6 glass-card opacity-0",
-    inView ? "animate-fade-in" : ""
-  )} style={{ animationDelay: delay }}>
-    <h3 className="text-xl font-semibold mb-4">{title}</h3>
-    <div className="flex flex-wrap gap-2">
+// Skill component with proficiency indicator
+const Skill = ({ name, proficiency }: { name: string; proficiency: number }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <motion.div 
+      whileHover={{ scale: 1.05 }}
+      className="relative cursor-pointer"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Card className="p-4 glass-card border-primary/20 h-full flex flex-col justify-between">
+        <h3 className="font-bold text-lg mb-2">{name}</h3>
+        <div className="w-full bg-muted rounded-full h-2 mt-2">
+          <div 
+            className="bg-gradient-to-r from-blue-400 to-purple-600 h-2 rounded-full" 
+            style={{ width: `${proficiency}%` }}
+          />
+        </div>
+        {isHovered && (
+          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-foreground/90 text-background px-2 py-1 rounded text-xs whitespace-nowrap">
+            {proficiency}% Proficiency
+          </div>
+        )}
+      </Card>
+    </motion.div>
+  );
+};
+
+const SkillSection = ({ title, skills, inView }: { title: string; skills: Array<{name: string; proficiency: number}>; inView: boolean }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+    transition={{ duration: 0.6, delay: 0.2 }}
+    className="mb-10"
+  >
+    <h2 className="text-2xl font-bold mb-6 text-primary">{title}</h2>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {skills.map((skill, index) => (
-        <span key={index} className="skill-badge">
-          {skill}
-        </span>
+        <Skill 
+          key={index} 
+          name={skill.name} 
+          proficiency={skill.proficiency} 
+        />
       ))}
     </div>
-  </Card>
+  </motion.div>
 );
 
 const Skills = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [isInView, setIsInView] = useState(false);
+  
+  useEffect(() => {
+    // Simulate the inView calculation after component mount
+    setIsInView(true);
+  }, []);
 
   const frontendSkills = [
-    "React.js", "JavaScript", "TypeScript", "HTML5", "CSS3", 
-    "React Native", "Redux", "Material UI", "Responsive Design"
+    { name: "React.js", proficiency: 90 },
+    { name: "JavaScript", proficiency: 85 },
+    { name: "TypeScript", proficiency: 80 },
+    { name: "HTML5", proficiency: 95 },
+    { name: "CSS3", proficiency: 85 },
+    { name: "React Native", proficiency: 75 }
   ];
   
   const toolsSkills = [
-    "Git", "Jest", "npm", "Visual Studio Code", "Chrome DevTools", "Webpack"
+    { name: "Git", proficiency: 85 },
+    { name: "Jest", proficiency: 70 },
+    { name: "npm", proficiency: 85 },
+    { name: "Visual Studio Code", proficiency: 90 },
+    { name: "Chrome DevTools", proficiency: 80 },
+    { name: "Webpack", proficiency: 65 }
   ];
   
   const methodologySkills = [
-    "Agile", "Scrum", "Test-Driven Development", "Component-Based Architecture", "RESTful APIs"
+    { name: "Agile", proficiency: 80 },
+    { name: "Scrum", proficiency: 75 },
+    { name: "Test-Driven Development", proficiency: 70 },
+    { name: "Component-Based Architecture", proficiency: 85 },
+    { name: "RESTful APIs", proficiency: 80 },
+    { name: "Responsive Design", proficiency: 90 }
   ];
 
   return (
-    <section id="skills" className="py-20 md:py-28">
+    <section id="skills" className="py-20 md:py-28 bg-gradient-to-b from-background to-background/60">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <h2 className="section-heading" ref={ref}>
-          Skills & Expertise
-        </h2>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Professional <span className="text-primary">Skillset</span>
+          </h1>
+          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
+            Here are my technical skills and proficiency levels
+          </p>
+        </motion.div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-8">
-          <SkillCategory 
-            title="Frontend Development" 
-            skills={frontendSkills} 
-            inView={inView} 
-            delay="0s"
-          />
-          
-          <SkillCategory 
-            title="Tools & Platforms" 
-            skills={toolsSkills} 
-            inView={inView} 
-            delay="0.2s"
-          />
-          
-          <SkillCategory 
-            title="Methodologies" 
-            skills={methodologySkills} 
-            inView={inView} 
-            delay="0.4s"
-          />
-        </div>
-        
-        <div className="mt-16">
-          <Card className={cn(
-            "p-6 md:p-8 glass-card opacity-0",
-            inView ? "animate-fade-in" : ""
-          )} style={{ animationDelay: '0.6s' }}>
-            <h3 className="text-xl font-semibold mb-4">Technical Approach</h3>
-            <div className="space-y-4 text-foreground/80">
-              <p>
-                I approach frontend development with a focus on creating clean, maintainable, and 
-                performant code. I prioritize component reusability, accessibility, and responsive design 
-                in all projects I work on.
-              </p>
-              <p>
-                My experience includes building complex user interfaces, implementing state management 
-                solutions, and working with REST APIs to create dynamic web applications. I'm comfortable 
-                working in collaborative environments and adapting to different project requirements.
-              </p>
-              <p>
-                I stay updated with the latest frontend technologies and best practices through continuous 
-                learning and professional development. This allows me to bring modern solutions to every project.
-              </p>
-            </div>
-          </Card>
-        </div>
+        <SkillSection title="Frontend Development" skills={frontendSkills} inView={isInView} />
+        <SkillSection title="Tools & Platforms" skills={toolsSkills} inView={isInView} />
+        <SkillSection title="Methodologies" skills={methodologySkills} inView={isInView} />
       </div>
     </section>
   );

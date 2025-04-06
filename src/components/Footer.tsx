@@ -1,5 +1,7 @@
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   const [year, setYear] = useState("");
@@ -9,24 +11,53 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-foreground/5 py-12">
+    <footer className="bg-gradient-to-t from-background to-background/90 py-10 border-t border-primary/10">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-6 md:mb-0">
-            <h2 className="text-xl font-bold">
-              <span className="text-primary">Kiran</span> Kumar Rega
-            </h2>
-            <p className="text-sm text-foreground/60 mt-1">
-              Junior Software Engineer
-            </p>
+        <div className="flex flex-col items-center justify-center text-center">
+          <h2 className="text-2xl font-bold mb-3">
+            <span className="text-primary">Kiran</span> Kumar Rega
+          </h2>
+          
+          <p className="text-foreground/60 max-w-md mx-auto mb-6">
+            A passionate Frontend Developer building modern web applications and interfaces
+          </p>
+
+          <div className="flex items-center justify-center gap-4 mb-8">
+            <motion.a
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              href="https://github.com/kiranrega"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/60 hover:text-primary transition-colors"
+            >
+              <Github size={20} />
+            </motion.a>
+            
+            <motion.a
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              href="https://linkedin.com/in/kiranrega"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/60 hover:text-primary transition-colors"
+            >
+              <Linkedin size={20} />
+            </motion.a>
+            
+            <motion.a
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              href="mailto:kirankumar.rega@gmail.com"
+              className="text-foreground/60 hover:text-primary transition-colors"
+            >
+              <Mail size={20} />
+            </motion.a>
           </div>
           
-          <div className="text-center md:text-right">
-            <p className="text-sm text-foreground/60">
-              &copy; {year} Kiran Kumar Rega. All Rights Reserved.
-            </p>
-            <p className="text-xs text-foreground/50 mt-1">
-              Made with precision and care
+          <div className="text-foreground/60 text-sm">
+            <p>
+              Copyright © {year} Kiran Kumar Rega
             </p>
           </div>
         </div>

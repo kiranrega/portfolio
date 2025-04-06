@@ -3,19 +3,12 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useInView } from 'react-intersection-observer';
-import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
-import { Linkedin, Github, Mail } from "lucide-react";
+import { toast } from "sonner";
+import { Linkedin, Github, Mail, SendHorizontal } from "lucide-react";
 import { motion } from "framer-motion";
 
 const Contact = () => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,7 +16,6 @@ const Contact = () => {
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -36,9 +28,8 @@ const Contact = () => {
     
     // Simulate form submission
     setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
+      toast.success("Message sent successfully!", {
+        description: "Thank you for reaching out. I'll get back to you soon."
       });
       
       setFormData({
@@ -75,27 +66,33 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28">
+    <section id="contact" className="py-20 md:py-28 bg-gradient-to-b from-background/70 to-background">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <motion.h2 
-          className="section-heading" 
-          ref={ref}
-          initial={{ opacity: 0, x: -20 }}
-          animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
         >
-          Get In Touch
-        </motion.h2>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Get In <span className="text-primary">Touch</span>
+          </h1>
+          <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
+            Feel free to contact me for any work or suggestions
+          </p>
+        </motion.div>
         
         <motion.div 
           className="grid md:grid-cols-2 gap-10 mt-8"
           variants={containerVariants}
           initial="hidden"
-          animate={inView ? "visible" : "hidden"}
+          whileInView="visible"
+          viewport={{ once: true }}
         >
           <motion.div variants={itemVariants}>
-            <Card className="p-6 md:p-8 glass-card">
-              <h3 className="text-xl font-semibold mb-6">Send Me a Message</h3>
+            <Card className="p-6 md:p-8 glass-card border-primary/10 h-full">
+              <h3 className="text-2xl font-bold text-primary mb-6">Contact Me</h3>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -109,7 +106,7 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="John Doe"
                     required
-                    className="w-full"
+                    className="w-full border-primary/20 focus:border-primary"
                   />
                 </div>
                 
@@ -125,7 +122,7 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="john@example.com"
                     required
-                    className="w-full"
+                    className="w-full border-primary/20 focus:border-primary"
                   />
                 </div>
                 
@@ -140,7 +137,7 @@ const Contact = () => {
                     onChange={handleChange}
                     placeholder="Your message here..."
                     required
-                    className="w-full min-h-[120px]"
+                    className="w-full min-h-[120px] border-primary/20 focus:border-primary"
                   />
                 </div>
                 
@@ -150,95 +147,82 @@ const Contact = () => {
                 >
                   <Button 
                     type="submit" 
-                    className="w-full"
+                    className="w-full flex items-center justify-center gap-2"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
+                    <SendHorizontal size={18} />
                   </Button>
                 </motion.div>
               </form>
             </Card>
           </motion.div>
           
-          <div className="space-y-6">
-            <motion.div variants={itemVariants}>
-              <Card className="p-6 md:p-8 glass-card">
-                <h3 className="text-xl font-semibold mb-6">Connect With Me</h3>
+          <motion.div variants={itemVariants} className="space-y-6">
+            <Card className="p-6 md:p-8 glass-card border-primary/10">
+              <h3 className="text-2xl font-bold text-primary mb-6">Let's Connect</h3>
+              
+              <div className="space-y-6">
+                <motion.a 
+                  href="mailto:kirankumar.rega@gmail.com"
+                  className="flex items-center gap-4 p-4 rounded-lg hover:bg-primary/5 transition-colors"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <Mail className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium">Email</h4>
+                    <p className="text-primary hover:underline">kirankumar.rega@gmail.com</p>
+                  </div>
+                </motion.a>
                 
-                <div className="space-y-4">
-                  <motion.div 
-                    className="flex items-center gap-4"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <div className="bg-primary/10 p-3 rounded-full">
-                      <Mail className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium">Email</h4>
-                      <a 
-                        href="mailto:kirankumar.rega@gmail.com" 
-                        className="text-sm text-primary hover:underline"
-                      >
-                        kirankumar.rega@gmail.com
-                      </a>
-                    </div>
-                  </motion.div>
-                  
-                  <motion.div 
-                    className="flex items-center gap-4"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <div className="bg-primary/10 p-3 rounded-full">
-                      <Linkedin className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium">LinkedIn</h4>
-                      <a 
-                        href="https://linkedin.com/in/kiranrega" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-sm text-primary hover:underline"
-                      >
-                        linkedin.com/in/kiranrega
-                      </a>
-                    </div>
-                  </motion.div>
-                  
-                  <motion.div 
-                    className="flex items-center gap-4"
-                    whileHover={{ x: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <div className="bg-primary/10 p-3 rounded-full">
-                      <Github className="w-5 h-5 text-primary" />
-                    </div>
-                    <div>
-                      <h4 className="font-medium">GitHub</h4>
-                      <a 
-                        href="https://github.com/kiranrega" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-sm text-primary hover:underline"
-                      >
-                        github.com/kiranrega
-                      </a>
-                    </div>
-                  </motion.div>
-                </div>
-              </Card>
-            </motion.div>
+                <motion.a 
+                  href="https://linkedin.com/in/kiranrega"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-lg hover:bg-primary/5 transition-colors"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <Linkedin className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium">LinkedIn</h4>
+                    <p className="text-primary hover:underline">linkedin.com/in/kiranrega</p>
+                  </div>
+                </motion.a>
+                
+                <motion.a 
+                  href="https://github.com/kiranrega"
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-4 rounded-lg hover:bg-primary/5 transition-colors"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <div className="bg-primary/10 p-3 rounded-full">
+                    <Github className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium">GitHub</h4>
+                    <p className="text-primary hover:underline">github.com/kiranrega</p>
+                  </div>
+                </motion.a>
+              </div>
+            </Card>
             
             <motion.div variants={itemVariants}>
-              <Card className="p-6 md:p-8 glass-card">
-                <h3 className="text-xl font-semibold mb-4">Let's Work Together</h3>
+              <Card className="p-6 md:p-8 glass-card border-primary/10">
+                <h3 className="text-xl font-bold text-primary mb-4">Let's Work Together</h3>
                 <p className="text-foreground/80">
-                  I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Feel free to reach out if you want to connect!
+                  Open for opportunities: Whether it's a project, job opportunity, or just a chat about technology, I'd love to hear from you!
                 </p>
               </Card>
             </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
