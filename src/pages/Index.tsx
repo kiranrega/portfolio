@@ -10,7 +10,7 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import SocialLinks from "@/components/SocialLinks";
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
@@ -47,31 +47,7 @@ const Index = () => {
         className="fixed bottom-0 left-5 z-40 hidden lg:block"
       >
         <div className="flex flex-col items-center">
-          <motion.a 
-            whileHover={{ y: -5, color: '#FF498B' }}
-            href="https://github.com/kiranrega" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-foreground/40 hover:text-primary transition-all duration-200 p-2.5"
-          >
-            <Github size={20} />
-          </motion.a>
-          <motion.a 
-            whileHover={{ y: -5, color: '#FF498B' }}
-            href="https://linkedin.com/in/kiranrega" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-foreground/40 hover:text-primary transition-all duration-200 p-2.5"
-          >
-            <Linkedin size={20} />
-          </motion.a>
-          <motion.a 
-            whileHover={{ y: -5, color: '#FF498B' }}
-            href="mailto:kirankumar.rega@gmail.com" 
-            className="text-foreground/40 hover:text-primary transition-all duration-200 p-2.5"
-          >
-            <Mail size={20} />
-          </motion.a>
+          <SocialLinks orientation="vertical" />
           <div className="w-px h-24 bg-foreground/20 mt-6"></div>
         </div>
       </motion.div>

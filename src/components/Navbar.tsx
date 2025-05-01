@@ -1,24 +1,52 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { motion } from 'framer-motion';
 
+const NavItem = ({ 
+  label, 
+  id, 
+  onClick, 
+  index = 0, 
+  isMobile = false 
+}: { 
+  label: string; 
+  id: string; 
+  onClick: () => void;
+  index?: number;
+  isMobile?: boolean;
+}) => {
+  return (
+    <motion.button 
+      key={id}
+      initial={isMobile ? false : { opacity: 0, y: -10 }}
+      animate={isMobile ? false : { opacity: 1, y: 0 }}
+      transition={{ delay: 0.1 * index, duration: 0.3 }}
+      whileHover={{ y: -2 }} 
+      onClick={onClick} 
+      className="nav-link text-sm"
+    >
+      {label}
+    </motion.button>
+  );
+};
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  const handleScroll = useCallback(() => {
+    setIsScrolled(window.scrollY > 20);
   }, []);
 
-  const scrollToSection = (id: string) => {
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  const scrollToSection = useCallback((id: string) => {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
@@ -26,7 +54,7 @@ const Navbar = () => {
       const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
-  };
+  }, []);
 
   const navItems = [
     { label: 'About', id: 'about' },
@@ -65,17 +93,13 @@ const Navbar = () => {
         {/* Desktop menu */}
         <nav className="hidden md:flex items-center space-x-8">
           {navItems.map((item, index) => (
-            <motion.button 
-              key={item.id}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index, duration: 0.3 }}
-              whileHover={{ y: -2 }} 
+            <NavItem 
+              key={item.id} 
+              label={item.label} 
+              id={item.id} 
+              index={index}
               onClick={() => scrollToSection(item.id)} 
-              className="nav-link text-sm"
-            >
-              {item.label}
-            </motion.button>
+            />
           ))}
           <ThemeToggle />
         </nav>
@@ -104,14 +128,13 @@ const Navbar = () => {
       >
         <nav className="flex flex-col py-4 space-y-4">
           {navItems.map((item) => (
-            <motion.button 
-              key={item.id}
-              whileHover={{ x: 2 }} 
+            <NavItem 
+              key={item.id} 
+              label={item.label} 
+              id={item.id}
+              isMobile
               onClick={() => scrollToSection(item.id)} 
-              className="nav-link w-fit flex items-center text-sm"
-            >
-              {item.label}
-            </motion.button>
+            />
           ))}
         </nav>
       </motion.div>

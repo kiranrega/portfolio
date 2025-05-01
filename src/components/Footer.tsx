@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import SocialLinks from "./SocialLinks";
 
 const Footer = () => {
   const [year, setYear] = useState("");
@@ -9,12 +9,6 @@ const Footer = () => {
   useEffect(() => {
     setYear(new Date().getFullYear().toString());
   }, []);
-
-  const socialLinks = [
-    { icon: Github, url: "https://github.com/kiranrega", label: "GitHub" },
-    { icon: Linkedin, url: "https://linkedin.com/in/kiranrega", label: "LinkedIn" },
-    { icon: Mail, url: "mailto:kirankumar.rega@gmail.com", label: "Email" }
-  ];
 
   return (
     <footer className="py-10 border-t border-secondary/30 relative">
@@ -35,22 +29,9 @@ const Footer = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.1 }}
             viewport={{ once: true }}
-            className="flex items-center justify-center gap-4 mb-6"
+            className="mb-6"
           >
-            {socialLinks.map((link) => (
-              <motion.a
-                key={link.label}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.label}
-                className="text-foreground/60 hover:text-primary transition-colors p-2"
-              >
-                <link.icon size={18} />
-              </motion.a>
-            ))}
+            <SocialLinks />
           </motion.div>
           
           <motion.div 
