@@ -123,9 +123,7 @@ const Hero = () => {
               options={{
                 strings: [
                   "Frontend Developer",
-                  "React.js Specialist",
-                  "UI/UX Enthusiast",
-                  "React Native Developer",
+                  "React.js Specialist",,
                 ],
                 autoStart: true,
                 loop: true,
