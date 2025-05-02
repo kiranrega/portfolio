@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, ExternalLink } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
+import InteractiveRibbon from './InteractiveRibbon';
+import ParticleBackground from './ParticleBackground';
 
 const Hero = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -81,6 +83,8 @@ const Hero = () => {
 
   return (
     <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+      <ParticleBackground />
+      
       <div className={`relative z-10 max-w-7xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-12 items-center ${isLoaded ? 'opacity-100 transition-opacity duration-1000' : 'opacity-0'}`}>
         <motion.div 
           variants={containerVariants}
@@ -161,11 +165,12 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.6, 0.05, 0.01, 0.9] }}
-          className="hidden md:block"
+          className="hidden md:block relative"
           style={{
             transform: `perspective(1000px) rotateY(${mousePosition.x * 5}deg) rotateX(${-mousePosition.y * 5}deg)`
           }}
         >
+          <InteractiveRibbon />
           <div className="relative">
             <div className="absolute -inset-1 bg-gradient-to-r from-accent-teal via-primary to-accent-indigo rounded-lg opacity-30 blur-md"></div>
             <div className="relative bg-background rounded-lg p-1">

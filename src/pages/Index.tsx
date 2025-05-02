@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
 import { motion } from "framer-motion";
 import SocialLinks from "@/components/SocialLinks";
+import FloatingSkillBadges from "@/components/FloatingSkillBadges";
 
 const Index = () => {
   const [mounted, setMounted] = useState(false);
@@ -38,6 +39,7 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground relative">
       <Navbar />
       <Toaster position="top-right" />
+      <FloatingSkillBadges />
       
       {/* Side social links */}
       <motion.div 
