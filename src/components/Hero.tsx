@@ -1,10 +1,10 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowDown, ExternalLink } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
 import InteractiveRibbon from './InteractiveRibbon';
+import InteractiveGlobe from './InteractiveGlobe';
 import ParticleBackground from './ParticleBackground';
 
 const Hero = () => {
@@ -171,15 +171,8 @@ const Hero = () => {
           }}
         >
           <InteractiveRibbon />
-          <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-accent-teal via-primary to-accent-indigo rounded-lg opacity-30 blur-md"></div>
-            <div className="relative bg-background rounded-lg p-1">
-              <img 
-                src="https://media.licdn.com/dms/image/v2/C5603AQE-jLSbYgPr3A/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1643889909683?e=1748476800&v=beta&t=4LevnLOeao5hRhldXhGvB9Sebb5gfMcPhiDftxrTABo" 
-                alt="Kiran Kumar Rega" 
-                className="w-full rounded-lg shadow-md"
-              />
-            </div>
+          <div className="relative flex items-center justify-center">
+            <InteractiveGlobe />
           </div>
         </motion.div>
       </div>

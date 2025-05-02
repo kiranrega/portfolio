@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&family=Raleway:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
@@ -224,4 +223,13 @@
 
 .btn-hover-effect:hover::before {
   @apply left-full;
+}
+
+/* Interactive Globe Styles */
+.globe-container {
+  @apply relative h-96 w-96 cursor-grab;
+}
+
+.globe-container:active {
+  @apply cursor-grabbing;
 }
