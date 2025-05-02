@@ -1,13 +1,14 @@
 
 import { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { OrbitControls, Sphere, Environment } from '@react-three/drei';
+import { OrbitControls, Sphere } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import { Earth } from 'lucide-react';
+import * as THREE from 'three';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const GlobeObject = ({ isHovered }: { isHovered: boolean }) => {
   const globeRef = useRef<THREE.Mesh>(null);
-  const { viewport } = useThree();
   
   // Rotate the globe
   useFrame((state, delta) => {
@@ -26,14 +27,14 @@ const GlobeObject = ({ isHovered }: { isHovered: boolean }) => {
         intensity={1} 
         color="#ffffff" 
       />
-      <Sphere ref={globeRef} args={[1, 64, 64]} scale={[0.9, 0.9, 0.9]}>
+      <Sphere ref={globeRef} args={[1, 64, 64]} scale={0.9}>
         <meshPhongMaterial 
           color={isHovered ? "#14b8a6" : "#6366f1"}
           wireframe 
           shininess={100}
         />
       </Sphere>
-      <Sphere args={[1, 64, 64]} scale={[1, 1, 1]}>
+      <Sphere args={[1, 64, 64]} scale={1}>
         <meshPhongMaterial 
           color={isHovered ? "#6366f1" : "#14b8a6"}
           opacity={0.1}
@@ -54,20 +55,7 @@ const GlobeObject = ({ isHovered }: { isHovered: boolean }) => {
 
 const InteractiveGlobe = () => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, []);
+  const isMobile = useIsMobile();
 
   if (isMobile) {
     return (
@@ -105,7 +93,7 @@ const InteractiveGlobe = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Canvas className="cursor-grab active:cursor-grabbing">
+      <Canvas>
         <GlobeObject isHovered={isHovered} />
       </Canvas>
       {/* Accent glow */}
