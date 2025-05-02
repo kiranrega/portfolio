@@ -87,6 +87,7 @@ const Hero = () => {
       <ParticleBackground />
       
       <div className={`relative z-10 max-w-7xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-12 items-center ${isLoaded ? 'opacity-100 transition-opacity duration-1000' : 'opacity-0'}`}>
+        {/* Left column - Text content */}
         <motion.div 
           variants={containerVariants}
           initial="hidden"
@@ -162,6 +163,7 @@ const Hero = () => {
           </motion.div>
         </motion.div>
         
+        {/* Right column - Visual elements */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -178,6 +180,7 @@ const Hero = () => {
         </motion.div>
       </div>
       
+      {/* Scroll indicator */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
