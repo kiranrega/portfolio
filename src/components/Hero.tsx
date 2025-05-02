@@ -23,7 +23,7 @@ const Hero = () => {
       
       // Add 3 gradient blobs
       const colors = [
-        'from-accent-teal/10 to-transparent',
+        'from-blue-500/10 to-transparent',
         'from-primary/10 to-transparent',
         'from-accent-indigo/10 to-transparent'
       ];
@@ -96,7 +96,7 @@ const Hero = () => {
         >
           <motion.p 
             variants={itemVariants} 
-            className="text-primary font-mono mb-5 text-sm"
+            className="text-blue-500 font-mono mb-5 text-sm"
           >
             Hello, I'm
           </motion.p>
@@ -153,7 +153,7 @@ const Hero = () => {
                   window.scrollTo({ top: y, behavior: 'smooth' });
                 }
               }}
-              className="bg-primary hover:bg-primary/90 text-white px-6 py-6 rounded-md text-base group"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-6 rounded-md text-base group"
             >
               <span className="mr-2">View my work</span>
               <ExternalLink size={16} className="inline-block transition-transform group-hover:translate-x-1" />
@@ -161,7 +161,7 @@ const Hero = () => {
           </motion.div>
         </motion.div>
         
-        {/* Right column - Visual elements */}
+        {/* Right column - Visual elements with interactive globe */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -196,7 +196,7 @@ const Hero = () => {
               window.scrollTo({ top: y, behavior: 'smooth' });
             }
           }}
-          className="flex flex-col items-center justify-center text-foreground/50 hover:text-primary transition-colors"
+          className="flex flex-col items-center justify-center text-foreground/50 hover:text-blue-500 transition-colors"
         >
           <span className="text-xs mb-2 font-mono">Scroll</span>
           <ArrowDown size={18} />
