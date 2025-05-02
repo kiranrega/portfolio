@@ -1,17 +1,26 @@
 
-import { useRef, useState, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useRef, useState, useEffect, Suspense } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Sphere } from '@react-three/drei';
 import { motion } from 'framer-motion';
 import { Earth } from 'lucide-react';
 import * as THREE from 'three';
 import { useIsMobile } from '@/hooks/use-mobile';
 
+// Custom error boundary for Three.js rendering issues
+const ErrorFallback = () => {
+  return (
+    <div className="w-full h-full flex items-center justify-center text-primary">
+      <Earth size={100} />
+    </div>
+  );
+};
+
 const GlobeObject = ({ isHovered }: { isHovered: boolean }) => {
   const globeRef = useRef<THREE.Mesh>(null);
   
   // Rotate the globe
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     if (globeRef.current) {
       // Always rotate slowly, but slower when hovered
       const rotationSpeed = isHovered ? 0.1 : 0.3;
@@ -25,17 +34,15 @@ const GlobeObject = ({ isHovered }: { isHovered: boolean }) => {
       <directionalLight 
         position={[10, 10, 10]} 
         intensity={1} 
-        color="#ffffff" 
       />
-      <Sphere ref={globeRef} args={[1, 64, 64]} scale={0.9}>
-        <meshPhongMaterial 
+      <Sphere ref={globeRef} args={[1, 32, 32]}>
+        <meshStandardMaterial 
           color={isHovered ? "#14b8a6" : "#6366f1"}
           wireframe 
-          shininess={100}
         />
       </Sphere>
-      <Sphere args={[1, 64, 64]} scale={1}>
-        <meshPhongMaterial 
+      <Sphere args={[1, 32, 32]} scale={1.1}>
+        <meshStandardMaterial 
           color={isHovered ? "#6366f1" : "#14b8a6"}
           opacity={0.1}
           transparent
@@ -55,9 +62,24 @@ const GlobeObject = ({ isHovered }: { isHovered: boolean }) => {
 
 const InteractiveGlobe = () => {
   const [isHovered, setIsHovered] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const isMobile = useIsMobile();
 
-  if (isMobile) {
+  // Error handler for WebGL context issues
+  useEffect(() => {
+    const handleError = () => {
+      console.log("WebGL context error detected, falling back to simplified view");
+      setHasError(true);
+    };
+    
+    window.addEventListener('webglcontextlost', handleError);
+    return () => {
+      window.removeEventListener('webglcontextlost', handleError);
+    };
+  }, []);
+
+  // Mobile or error fallback
+  if (isMobile || hasError) {
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
@@ -93,8 +115,10 @@ const InteractiveGlobe = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Canvas>
-        <GlobeObject isHovered={isHovered} />
+      <Canvas shadows dpr={[1, 2]} onError={() => setHasError(true)}>
+        <Suspense fallback={<ErrorFallback />}>
+          <GlobeObject isHovered={isHovered} />
+        </Suspense>
       </Canvas>
       {/* Accent glow */}
       <motion.div
