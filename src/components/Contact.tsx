@@ -174,7 +174,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-medium">Email</h4>
-                    <p className="text-primary hover:underline">kirankumar.rega@gmail.com</p>
+                    <motion.a className="text-primary hover:underline" mailto="kirankumar.rega@gmail.com">kirankumar.rega@gmail.com</motion.a>
                   </div>
                 </motion.a>
                 
@@ -191,7 +191,10 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-medium">LinkedIn</h4>
-                    <p className="text-primary hover:underline">linkedin.com/in/kiranrega</p>
+                    <motion.a className="text-primary hover:underline" 
+                    href="https://linkedin.com/in/kiranrega"
+                    target="_blank" 
+                  rel="noopener noreferrer">linkedin.com/in/kiranrega</motion.a>
                   </div>
                 </motion.a>
                 
@@ -208,7 +211,11 @@ const Contact = () => {
                   </div>
                   <div>
                     <h4 className="font-medium">GitHub</h4>
-                    <p className="text-primary hover:underline">github.com/kiranrega</p>
+                    <motion.a  
+                    href="https://github.com/kiranrega"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline">github.com/kiranrega</motion.a>
                   </div>
                 </motion.a>
               </div>
