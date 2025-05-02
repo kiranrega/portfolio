@@ -39,7 +39,6 @@ const Index = () => {
     <div className="min-h-screen bg-background text-foreground relative">
       <Navbar />
       <Toaster position="top-right" />
-      <FloatingSkillBadges />
       
       {/* Side social links */}
       <motion.div 
