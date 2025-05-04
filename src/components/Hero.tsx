@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -20,6 +19,7 @@ const Hero = () => {
     const createBackgroundElements = () => {
       const animatedBg = document.createElement('div');
       animatedBg.className = 'animated-bg';
+      animatedBg.setAttribute('aria-hidden', 'true');
       
       // Add 3 gradient blobs
       const colors = [
@@ -31,6 +31,7 @@ const Hero = () => {
       for (let i = 0; i < 3; i++) {
         const element = document.createElement('div');
         element.className = `animated-bg-element bg-gradient-radial ${colors[i]}`;
+        element.setAttribute('aria-hidden', 'true');
         
         // Random sizes and positions
         const size = Math.random() * 300 + 200;
@@ -82,8 +83,23 @@ const Hero = () => {
     show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
+  const scrollToAbout = () => {
+    const element = document.getElementById('about');
+    if (element) {
+      const yOffset = -80;
+      const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+      element.setAttribute('tabindex', '-1');
+      element.focus();
+    }
+  };
+
   return (
-    <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
+    <section 
+      ref={heroRef} 
+      className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden"
+      aria-label="Hero section"
+    >
       <ParticleBackground />
       
       <div className={`relative z-10 max-w-7xl mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-12 items-center ${isLoaded ? 'opacity-100 transition-opacity duration-1000' : 'opacity-0'}`}>
@@ -97,6 +113,7 @@ const Hero = () => {
           <motion.p 
             variants={itemVariants} 
             className="text-primary font-mono mb-5 text-sm"
+            role="doc-subtitle"
           >
             Hello, I'm
           </motion.p>
@@ -118,12 +135,14 @@ const Hero = () => {
           <motion.div 
             variants={itemVariants}
             className="text-xl md:text-2xl text-foreground/80 mb-8 h-16"
+            role="status"
+            aria-live="polite"
           >
             <Typewriter
               options={{
                 strings: [
                   "Frontend Developer",
-                  "React.js Specialist",,
+                  "React.js Specialist",
                 ],
                 autoStart: true,
                 loop: true,
@@ -145,18 +164,12 @@ const Hero = () => {
             className="mt-10"
           >
             <Button 
-              onClick={() => {
-                const element = document.getElementById('about');
-                if (element) {
-                  const yOffset = -80;
-                  const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-                  window.scrollTo({ top: y, behavior: 'smooth' });
-                }
-              }}
+              onClick={scrollToAbout}
               className="bg-primary hover:bg-primary/90 text-white px-6 py-6 rounded-md text-base group"
+              aria-label="View my work"
             >
               <span className="mr-2">View my work</span>
-              <ExternalLink size={16} className="inline-block transition-transform group-hover:translate-x-1" />
+              <ExternalLink size={16} className="inline-block transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Button>
           </motion.div>
         </motion.div>
@@ -170,6 +183,7 @@ const Hero = () => {
           style={{
             transform: `perspective(1000px) rotateY(${mousePosition.x * 5}deg) rotateX(${-mousePosition.y * 5}deg)`
           }}
+          aria-hidden="true"
         >
           <InteractiveRibbon />
           <div className="relative flex items-center justify-center">
@@ -188,18 +202,12 @@ const Hero = () => {
         <motion.button 
           animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
-          onClick={() => {
-            const element = document.getElementById('about');
-            if (element) {
-              const yOffset = -80;
-              const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-              window.scrollTo({ top: y, behavior: 'smooth' });
-            }
-          }}
+          onClick={scrollToAbout}
           className="flex flex-col items-center justify-center text-foreground/50 hover:text-primary transition-colors"
+          aria-label="Scroll to about section"
         >
           <span className="text-xs mb-2 font-mono">Scroll</span>
-          <ArrowDown size={18} />
+          <ArrowDown size={18} aria-hidden="true" />
         </motion.button>
       </motion.div>
     </section>

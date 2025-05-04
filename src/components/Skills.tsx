@@ -37,7 +37,7 @@ const Skill = ({ name, icon, level, index }: SkillProps) => {
           className="w-12 h-12 mb-3 transition-transform duration-300 group-hover:scale-110" 
         />
         <h3 className="font-medium text-center">{name}</h3>
-        <div className="w-full mt-3 bg-muted rounded-full h-1.5 overflow-hidden">
+        {/* <div className="w-full mt-3 bg-muted rounded-full h-1.5 overflow-hidden">
           <motion.div 
             initial={{ width: 0 }}
             whileInView={{ width: `${level}%` }}
@@ -45,14 +45,15 @@ const Skill = ({ name, icon, level, index }: SkillProps) => {
             viewport={{ once: true }}
             className={`h-full rounded-full bg-gradient-to-r ${getColor(level)}`}
           />
-        </div>
+        </div> */}
         {isHovered && (
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-muted px-3 py-1 rounded-md text-xs font-mono shadow-lg border border-white/10"
           >
-            {level}% Proficiency
+            {/* {level}% Proficiency */}
+            {name}
           </motion.div>
         )}
       </div>
