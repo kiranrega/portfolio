@@ -97,9 +97,9 @@ const Skills = () => {
   ];
   
   const methodologySkills = [
-    { name: "Agile", icon: "https://cdn.simpleicons.org/agile/6366F1", level: 80 },
-    { name: "Scrum", icon: "https://cdn.simpleicons.org/scrumalliance/FF498B", level: 75 },
-    { name: "TDD", icon: "https://cdn.simpleicons.org/testinglibrary/E33332", level: 70 },
+    // { name: "Agile", icon: "https://cdn.simpleicons.org/agile/6366F1", level: 80 },
+    // { name: "Scrum", icon: "https://cdn.simpleicons.org/scrumalliance/FF498B", level: 75 },
+    // { name: "TDD", icon: "https://cdn.simpleicons.org/testinglibrary/E33332", level: 70 },
     { name: "REST APIs", icon: "https://cdn.simpleicons.org/postman/FF6C37", level: 80 },
     { name: "Responsive Design", icon: "https://cdn.simpleicons.org/tailwindcss/06B6D4", level: 90 }
   ];
